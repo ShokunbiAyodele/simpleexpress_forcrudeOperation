@@ -3,6 +3,9 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(express.static('public'))
 app.use(bodyParser.json())
+const cors = require('cors');
+const Port = 3000;
+app.use(cors())
 
 app.use(bodyParser.urlencoded({extended:true}))
 app.set('view engine','ejs')
@@ -25,7 +28,6 @@ app.get('/', (req,res) => {
     });
     
 })
-
 
 app.post('/quotes', (req,res) => {
     if(req.method !== 'POST'){
@@ -74,7 +76,7 @@ app.delete('/quotes', (req,res) => {
 
 
 
-app.listen(3000, () => {
+app.listen( process.env.Port || Port, () => {
     console.log("server is listening on port 3000");
 })  
 
